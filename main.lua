@@ -509,9 +509,7 @@ function Library:MakeWindow(WindowConfig)
 		AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://3926307971"), {
 			Size = UDim2.new(0, 20, 0, 20),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			RectOffset = Vector2.new(0, 0),
-			RectSize = Vector2.new(0, 0) 
+			AnchorPoint = Vector2.new(0.5, 0.5)
 		}), "TextDark")
 	})
 
@@ -759,6 +757,24 @@ function Library:MakeWindow(WindowConfig)
 		AddConnection(TabButton.MouseButton1Click, ActivateTab)
 
 		local ElementFunction = {}
+
+		function ElementFunction:AddSection(SectionConfig)
+			SectionConfig.Name = SectionConfig.Name or "Section"
+			
+			local SectionFrame = AddThemeObject(SetChildren(SetProps(MakeElement("Frame"), {
+				Size = UDim2.new(1, 0, 0, 30),
+				Parent = TabContainer,
+				BackgroundTransparency = 1
+			}), {
+				AddThemeObject(SetProps(MakeElement("Label", SectionConfig.Name, 12), {
+					Size = UDim2.new(1, -10, 1, 0),
+					Position = UDim2.new(0, 5, 0, 0),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Font = Library.HeaderFont,
+					TextColor3 = Library.Themes[Library.SelectedTheme].TextDark
+				}), "TextDark")
+			}), "Second")
+		end
 
 		function ElementFunction:AddLabel(Text)
 			local LabelContainer = AddThemeObject(SetChildren(SetProps(MakeElement("Frame"), {
